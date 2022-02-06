@@ -1,0 +1,49 @@
+logging:
+  config: classpath:log4j2.yml
+
+mybatis-plus:
+  global-config:
+    banner: false
+  configuration:
+    map-underscore-to-camel-case: true
+    auto-mapping-behavior: full
+
+server:
+  port: 8080
+  compression:
+    enabled: true
+    mime-types: text/html,text/plain,text/css,application/javascript
+    min-response-size: 1024
+#  netty:
+#    connection-timeout:
+#  tomcat:
+#    max-connections: 20000 # 最大连接数
+#    accept-count: 1000 # 接收队列长度
+#    threads:
+#      max: 500 # 最大并发数
+#      min-spare: 20 # 初始线程数
+
+spring:
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      refresh-routes:
+        nacos-config:
+          data-id: gateway-routes
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    default-property-inclusion: non_null
+    serialization:
+      indent-output: true
+    time-zone: GMT+8
+  messages:
+    basename: i18n/messages
+  main:
+    allow-bean-definition-overriding: true
+  thymeleaf:
+    mode: HTML

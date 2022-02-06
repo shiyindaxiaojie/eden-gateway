@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.ylzl</groupId>
+		<artifactId>eden-parent</artifactId>
+		<version>2.4.13-SNAPSHOT</version>
+		<relativePath/>
+	</parent>
+	<groupId>org.ylzl.eden.gateway</groupId>
+	<artifactId>eden-gateway</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>eden-gateway</name>
+	<description>API 网关</description>
+
+	<modules>
+		<module>eden-gateway-adapter</module>
+		<module>eden-gateway-app</module>
+		<module>eden-gateway-client</module>
+		<module>eden-gateway-domain</module>
+		<module>eden-gateway-infrastructure</module>
+		<module>eden-gateway-start</module>
+	</modules>
+
+	<developers>
+		<developer>
+			<id>sion</id>
+			<name>梦想歌</name>
+			<email>mengxiangge@ylzl.org</email>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</developer>
+	</developers>
+
+	<properties>
+		<spring.profiles.active>prod</spring.profiles.active>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.ylzl.eden.gateway</groupId>
+				<artifactId>eden-gateway-adapter</artifactId>
+				<version>1.0.0-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl.eden.gateway</groupId>
+				<artifactId>eden-gateway-app</artifactId>
+				<version>1.0.0-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl.eden.gateway</groupId>
+				<artifactId>eden-gateway-client</artifactId>
+				<version>1.0.0-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl.eden.gateway</groupId>
+				<artifactId>eden-gateway-domain</artifactId>
+				<version>1.0.0-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl.eden.gateway</groupId>
+				<artifactId>eden-gateway-infrastructure</artifactId>
+				<version>1.0.0-SNAPSHOT</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>maven-deploy-plugin</artifactId>
+					<configuration>
+						<skip>true</skip>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-archetype-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>versions-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>flatten-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+</project>

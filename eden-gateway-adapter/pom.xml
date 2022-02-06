@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.ylzl.eden.gateway</groupId>
+		<artifactId>eden-gateway</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+	<artifactId>eden-gateway-adapter</artifactId>
+	<packaging>jar</packaging>
+	<name>eden-gateway-adapter</name>
+	<description>适配层</description>
+
+	<dependencies>
+		<!-- APP层依赖 -->
+		<dependency>
+			<groupId>org.ylzl.eden.gateway</groupId>
+			<artifactId>eden-gateway-app</artifactId>
+		</dependency>
+
+		<!-- 开发组件 -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-spring-framework</artifactId>
+		</dependency>
+
+		<!-- WEB 组件 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webflux</artifactId>
+		</dependency>
+
+		<!-- 监控组件 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+	</dependencies>
+</project>

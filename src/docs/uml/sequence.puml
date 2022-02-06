@@ -1,0 +1,35 @@
+@startuml
+
+autonumber
+
+== 场景一：更新数据请求 ==
+
+"外部请求（WEB/RPC/WAP）" -> "eden-gateway-adapter": 发送写请求报文
+"eden-gateway-adapter" -> "eden-gateway-app": 适配器组装数据传输对象
+"eden-gateway-app" -> "eden-gateway-app": CQRS 解析出命令参数
+"eden-gateway-app" -> "eden-gateway-domain": 调用领域层
+"eden-gateway-domain" -> "eden-gateway-infrastructure": 通过防腐层执行数据写操作
+"eden-gateway-infrastructure" -> "技术实现细节（DB/ES/RPC/REST/Redis）": 调用底层组件进行写操作
+"eden-gateway-infrastructure" -> "扩展点（Extension）": 调用扩展功能（可选项）
+"eden-gateway-infrastructure" --> "eden-gateway-app": 返回查询数据
+"eden-gateway-app" --> "eden-gateway-adapter": 组装数据并响应报文
+
+== 场景二：查询数据请求 ==
+
+"外部请求（WEB/RPC/WAP）" -> "eden-gateway-adapter": 场景二：发送读请求报文
+"eden-gateway-adapter" -> "eden-gateway-app": 适配器组装数据传输对象
+"eden-gateway-app" -> "eden-gateway-app": CQRS 解析出查询参数
+"eden-gateway-app" -> "eden-gateway-infrastructure": 执行数据读操作
+"eden-gateway-infrastructure" -> "技术实现细节（DB/ES/RPC/REST/Redis）": 调用底层组件进行读操作
+"eden-gateway-infrastructure" -> "扩展点（Extension）": 调用扩展功能（可选项）
+"eden-gateway-infrastructure" --> "eden-gateway-app": 返回查询数据
+"eden-gateway-app" --> "eden-gateway-adapter": 组装数据并响应报文
+
+
+
+
+
+
+
+
+@enduml
