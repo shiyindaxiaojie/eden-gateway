@@ -5,7 +5,7 @@ Configuration:
   Properties:
     Property:
       - name: project.name
-        value: eden-gateway-start
+        value: eden-gateway
       - name: log.path
         value: /tmp/logs
       - name: console.pattern
