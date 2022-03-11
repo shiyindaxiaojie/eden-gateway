@@ -52,7 +52,7 @@
 		<!-- 配置中心组件 -->
 		<dependency>
 			<groupId>org.ylzl</groupId>
-			<artifactId>eden-nacos-config-spring-boot-starter</artifactId>
+			<artifactId>eden-nacos-config-spring-cloud-starter</artifactId>
 		</dependency>
 
 		<!-- 熔断组件 -->
