@@ -15,6 +15,15 @@
 	<name>eden-gateway-infrastructure</name>
 	<description>基础设施层</description>
 
+	<plugins>
+		<plugin>
+			<artifactId>maven-deploy-plugin</artifactId>
+			<configuration>
+				<skip>true</skip>
+			</configuration>
+		</plugin>
+	</plugins>
+
 	<dependencies>
 		<!-- 领域层依赖 -->
 		<dependency>

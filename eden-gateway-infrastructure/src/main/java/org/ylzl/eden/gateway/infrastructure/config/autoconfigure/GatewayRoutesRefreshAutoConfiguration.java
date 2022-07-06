@@ -8,6 +8,7 @@ import com.alibaba.nacos.api.config.listener.Listener;
 import com.alibaba.nacos.api.exception.NacosException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.context.annotation.Configuration;
@@ -25,6 +26,7 @@ import java.util.concurrent.Executor;
  * @author gyl
  * @since 2.4.x
  */
+@ConditionalOnProperty(GatewayRoutesRefreshProperties.PREFIX)
 @EnableConfigurationProperties(GatewayRoutesRefreshProperties.class)
 @Slf4j
 @Configuration

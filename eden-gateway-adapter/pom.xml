@@ -15,6 +15,15 @@
 	<name>eden-gateway-adapter</name>
 	<description>适配层</description>
 
+	<plugins>
+		<plugin>
+			<artifactId>maven-deploy-plugin</artifactId>
+			<configuration>
+				<skip>true</skip>
+			</configuration>
+		</plugin>
+	</plugins>
+
 	<dependencies>
 		<!-- APP层依赖 -->
 		<dependency>

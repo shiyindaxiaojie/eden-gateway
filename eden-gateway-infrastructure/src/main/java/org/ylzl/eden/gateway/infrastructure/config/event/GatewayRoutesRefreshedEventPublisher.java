@@ -2,6 +2,7 @@ package org.ylzl.eden.gateway.infrastructure.config.event;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cloud.gateway.event.RefreshRoutesEvent;
 import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinitionLocator;
@@ -9,6 +10,7 @@ import org.springframework.cloud.gateway.route.RouteDefinitionWriter;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.stereotype.Component;
+import org.ylzl.eden.gateway.infrastructure.config.env.GatewayRoutesRefreshProperties;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
@@ -19,6 +21,7 @@ import java.util.List;
  * @author gyl
  * @since 2.4.x
  */
+@ConditionalOnProperty(GatewayRoutesRefreshProperties.PREFIX)
 @Slf4j
 @Component
 public class GatewayRoutesRefreshedEventPublisher implements ApplicationEventPublisherAware {

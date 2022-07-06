@@ -7,11 +7,26 @@ logging:
 spring:
   # 缓存数据库
   redis:
-    database: 1
-    host: localhost
-    port: 6379
-    password:
+    #    database: 1
+    #    host: localhost
+    #    port: 6379
+    password: puyiwm
     timeout: 5000
+    cluster:
+      nodes: 10.2.2.45:6379,10.2.2.48:6379,10.2.2.47:6379,10.2.2.47:6380,10.2.2.47:6381,10.2.2.47:6382
   # 模板引擎
   thymeleaf:
     cache: false
+  zipkin:
+    base-url: http://10.2.2.47:9411/
+    discovery-client-enabled: false
+    send:
+      type: web
+    locator:
+      discovery:
+        enabled: true
+  sleuth:
+    sampler:
+      probability: 1.0
+    async:
+      enabled: false

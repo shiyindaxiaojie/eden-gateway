@@ -10,8 +10,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @since 2.4.x
  */
 @Data
-@ConfigurationProperties(prefix = "spring.cloud.gateway.refresh-routes")
+@ConfigurationProperties(prefix = GatewayRoutesRefreshProperties.PREFIX)
 public class GatewayRoutesRefreshProperties {
+
+	public static final String PREFIX = "spring.cloud.gateway.refresh-routes";
 
 	private final NacosConfig nacosConfig = new NacosConfig();
 

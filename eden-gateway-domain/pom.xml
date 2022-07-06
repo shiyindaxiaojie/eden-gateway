@@ -15,6 +15,15 @@
 	<name>eden-gateway-domain</name>
 	<description>领域层</description>
 
+	<plugins>
+		<plugin>
+			<artifactId>maven-deploy-plugin</artifactId>
+			<configuration>
+				<skip>true</skip>
+			</configuration>
+		</plugin>
+	</plugins>
+
 	<dependencies>
 		<!-- API层依赖 -->
 		<dependency>

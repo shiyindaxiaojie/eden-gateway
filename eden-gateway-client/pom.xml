@@ -15,17 +15,6 @@
 	<name>eden-gateway-client</name>
 	<description>API层</description>
 
-	<build>
-		<plugins>
-			<plugin>
-				<artifactId>maven-deploy-plugin</artifactId>
-				<configuration>
-					<skip>false</skip>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
-
 	<dependencies>
 		<!-- 开发组件 -->
 		<dependency>

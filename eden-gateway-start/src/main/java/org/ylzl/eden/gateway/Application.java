@@ -5,7 +5,6 @@ import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.ylzl.eden.spring.framework.bootstrap.SpringBootApplicationTemplate;
-import org.ylzl.eden.spring.framework.cola.catchlog.annotation.EnableCatchLog;
 
 /**
  * Spring Boot 引导类
@@ -13,7 +12,6 @@ import org.ylzl.eden.spring.framework.cola.catchlog.annotation.EnableCatchLog;
  * @author gyl
  * @since 2.4.x
  */
-@EnableCatchLog
 @EnableDiscoveryClient
 @Slf4j
 @SpringBootApplication
