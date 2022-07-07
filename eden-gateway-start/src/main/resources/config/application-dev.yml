@@ -20,8 +20,6 @@ spring:
   zipkin:
     base-url: http://10.2.2.47:9411/
     discovery-client-enabled: false
-    send:
-      type: web
     locator:
       discovery:
         enabled: true
