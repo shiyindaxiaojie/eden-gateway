@@ -18,8 +18,8 @@ spring:
   thymeleaf:
     cache: false
   zipkin:
-    base-url: http://10.2.2.47:9411/
-    discovery-client-enabled: false
+    base-url: http://10.2.2.47:9411
+    discovery-client-enabled: true
     locator:
       discovery:
         enabled: true
@@ -27,4 +27,18 @@ spring:
     sampler:
       probability: 1.0
     async:
-      enabled: false
+      configurer:
+        enabled: false
+
+#com:
+#  alipay:
+#    sofa:
+#      tracer:
+#        zipkin:
+#          enabled: true
+#          baseUrl: http://10.2.2.47:9411
+#          gzipped: true
+#        datasource:
+#          enable: true
+#        redis:
+#          enabled: true

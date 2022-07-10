@@ -1,6 +1,5 @@
 package org.ylzl.eden.gateway.adapter;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboReference;
@@ -12,6 +11,7 @@ import org.ylzl.eden.demo.client.user.api.UserService;
 import org.ylzl.eden.demo.client.user.dto.UserDTO;
 import org.ylzl.eden.demo.client.user.dto.query.UserByIdQry;
 import org.ylzl.eden.gateway.adapter.constant.ApiConstant;
+import org.ylzl.eden.spring.data.redis.core.CustomRedisTemplate;
 import org.ylzl.eden.spring.framework.cola.dto.SingleResponse;
 
 /**
@@ -29,6 +29,8 @@ public class TestController {
     @DubboReference
 	private UserService userService;
 
+	private final CustomRedisTemplate customRedisTemplate;
+
 	/**
 	 * 根据主键获取用户信息
 	 *
@@ -36,7 +38,8 @@ public class TestController {
 	 * @return
 	 */
 	@GetMapping("/{id}")
-	public SingleResponse<UserDTO> getUserById(@PathVariable Long id) throws JsonProcessingException {
+	public SingleResponse<UserDTO> getUserById(@PathVariable Long id) {
+		customRedisTemplate.get("test");
 		return userService.getUserById(UserByIdQry.builder().id(id).build());
 	}
 }
