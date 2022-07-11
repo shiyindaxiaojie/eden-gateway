@@ -15,8 +15,6 @@ import org.ylzl.eden.gateway.adapter.constant.ApiConstant;
 import org.ylzl.eden.spring.data.redis.core.CustomRedisTemplate;
 import org.ylzl.eden.spring.framework.cola.dto.SingleResponse;
 
-import java.util.Collection;
-
 /**
  * TODO
  *
@@ -43,9 +41,8 @@ public class TestController {
 	@GetMapping("/{id}")
 	public SingleResponse<UserDTO> getUserById(@PathVariable Long id) {
 		customRedisTemplate.get("test");
-		Collection<UserDTO> userDTOList =
 			userService.listUserByPage(UserListByPageQry.builder().login(
-				"admin").build()).getData();
+				"admin").build());
 		return userService.getUserById(UserByIdQry.builder().id(id).build());
 	}
 }
