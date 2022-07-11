@@ -15,4 +15,5 @@ import org.ylzl.eden.gateway.infrastructure.config.env.ApplicationProperties;
 @Slf4j
 @Configuration
 public class ApplicationAutoConfiguration {
+
 }

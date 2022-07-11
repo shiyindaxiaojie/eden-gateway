@@ -10,9 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.ylzl.eden.demo.client.user.api.UserService;
 import org.ylzl.eden.demo.client.user.dto.UserDTO;
 import org.ylzl.eden.demo.client.user.dto.query.UserByIdQry;
+import org.ylzl.eden.demo.client.user.dto.query.UserListByPageQry;
 import org.ylzl.eden.gateway.adapter.constant.ApiConstant;
 import org.ylzl.eden.spring.data.redis.core.CustomRedisTemplate;
 import org.ylzl.eden.spring.framework.cola.dto.SingleResponse;
+
+import java.util.Collection;
 
 /**
  * TODO
@@ -40,6 +43,9 @@ public class TestController {
 	@GetMapping("/{id}")
 	public SingleResponse<UserDTO> getUserById(@PathVariable Long id) {
 		customRedisTemplate.get("test");
+		Collection<UserDTO> userDTOList =
+			userService.listUserByPage(UserListByPageQry.builder().login(
+				"admin").build()).getData();
 		return userService.getUserById(UserByIdQry.builder().id(id).build());
 	}
 }
