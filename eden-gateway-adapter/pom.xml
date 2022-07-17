@@ -60,7 +60,6 @@
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 
-
         <dependency>
             <groupId>org.ylzl.eden.demo</groupId>
             <artifactId>eden-demo-cola-client</artifactId>
