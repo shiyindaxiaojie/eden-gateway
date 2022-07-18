@@ -14,13 +14,10 @@ spring:
         namespace: demo
         group: spring-cloud
     sentinel:
+      enabled: true
       transport:
         dashboard: localhost:8090
-#      scg:
-#        fallback:
-#          mode: reponse
-#          response-status: 426
-#          response-body: error request
+
 dubbo:
   registry:
     address: nacos://10.2.2.47:8848?group=DEFAULT_GROUP&namespace=demo

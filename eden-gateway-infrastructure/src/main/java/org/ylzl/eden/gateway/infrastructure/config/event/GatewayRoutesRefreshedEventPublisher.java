@@ -27,11 +27,11 @@ import java.util.Set;
  * @author gyl
  * @since 2.4.x
  */
-//@ConditionalOnProperty(GatewayRoutesRefreshProperties.PREFIX)
 @Slf4j
 @Component
 public class GatewayRoutesRefreshedEventPublisher implements ApplicationEventPublisherAware {
 
+	public static final String REACTIVE_COMPOSITE_DISCOVERY_CLIENT_ = "ReactiveCompositeDiscoveryClient_";
 	private final RouteDefinitionWriter routeDefinitionWriter;
 	private final RouteDefinitionLocator routeDefinitionLocator;
 	private ApplicationEventPublisher publisher;
@@ -50,7 +50,6 @@ public class GatewayRoutesRefreshedEventPublisher implements ApplicationEventPub
 		log.info("Gateway add route: {}", routeDefinition);
 		routeDefinitionWriter.save(Mono.just(routeDefinition)).subscribe();
 		publisher.publishEvent(new RefreshRoutesEvent(this));
-//		refreshGatewayApis(routeDefinition);
 	}
 
 	public void delete(RouteDefinition routeDefinition) {
@@ -79,7 +78,8 @@ public class GatewayRoutesRefreshedEventPublisher implements ApplicationEventPub
 		List<RouteDefinition> oldRouteDefinitions =
 			routeDefinitionLocator.getRouteDefinitions().buffer().blockFirst();
 		if (!CollectionUtils.isEmpty(oldRouteDefinitions)) {
-			oldRouteDefinitions.forEach(e -> {
+			oldRouteDefinitions.stream().filter(e -> !e.getId().startsWith(
+				REACTIVE_COMPOSITE_DISCOVERY_CLIENT_)).forEach(e -> {
 				log.info("Gateway batch delete route: {}", e);
 				routeDefinitionWriter.delete(Mono.just(e.getId()));
 			});
@@ -93,6 +93,6 @@ public class GatewayRoutesRefreshedEventPublisher implements ApplicationEventPub
 				.setMatchStrategy(SentinelGatewayConstants.URL_MATCH_STRATEGY_PREFIX)));
 
 		ApiDefinition apiDefinition = new ApiDefinition(routeDefinition.getUri().toString()).setPredicateItems(apiPredicateItems);
-		GatewayApiDefinitionManager.loadApiDefinitions(Sets.newHashSet(apiDefinition));
+		GatewayApiDefinitionManager.getApiDefinitions().addAll(Sets.newHashSet(apiDefinition));
 	}
 }

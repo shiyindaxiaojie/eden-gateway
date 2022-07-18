@@ -21,15 +21,16 @@ spring:
       ribbon:
         enabled: false
     gateway:
+      enabled: true
       discovery:
         locator:
           enabled: true
+          lower-case-service-id: true
       refresh-routes:
         enabled: true
         nacos:
           enabled: true
           data-id: gateway-routes.json
-
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     default-property-inclusion: non_null

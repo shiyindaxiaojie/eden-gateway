@@ -15,8 +15,6 @@ public class GatewayRoutesRefreshProperties {
 
 	public static final String PREFIX = "spring.cloud.gateway.refresh-routes";
 
-	private boolean enabled;
-
 	private final Nacos nacos = new Nacos();
 
 	@Data
