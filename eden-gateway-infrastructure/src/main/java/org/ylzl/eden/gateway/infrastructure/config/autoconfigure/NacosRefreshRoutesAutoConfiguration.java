@@ -8,7 +8,7 @@ import com.alibaba.nacos.api.config.listener.Listener;
 import com.alibaba.nacos.api.exception.NacosException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.context.annotation.Configuration;
@@ -21,16 +21,16 @@ import java.util.Properties;
 import java.util.concurrent.Executor;
 
 /**
- * 网关路由刷新自动装配
+ * Nacos 刷新网关路由自动装配
  *
  * @author gyl
  * @since 2.4.x
  */
-@ConditionalOnProperty(GatewayRoutesRefreshProperties.PREFIX)
+@ConditionalOnExpression("${" + GatewayRoutesRefreshProperties.PREFIX + ".nacos.enabled}")
 @EnableConfigurationProperties(GatewayRoutesRefreshProperties.class)
 @Slf4j
 @Configuration
-public class GatewayRoutesRefreshAutoConfiguration {
+public class NacosRefreshRoutesAutoConfiguration {
 
 	private final GatewayRoutesRefreshedEventPublisher publisher;
 
@@ -38,7 +38,7 @@ public class GatewayRoutesRefreshAutoConfiguration {
 
 	private final NacosConfigProperties nacosConfigProperties;
 
-	public GatewayRoutesRefreshAutoConfiguration(GatewayRoutesRefreshedEventPublisher publisher, GatewayRoutesRefreshProperties properties, NacosConfigProperties nacosConfigProperties) {
+	public NacosRefreshRoutesAutoConfiguration(GatewayRoutesRefreshedEventPublisher publisher, GatewayRoutesRefreshProperties properties, NacosConfigProperties nacosConfigProperties) {
 		this.publisher = publisher;
 		this.properties = properties;
 		this.nacosConfigProperties = nacosConfigProperties;
@@ -48,7 +48,7 @@ public class GatewayRoutesRefreshAutoConfiguration {
 	public void init() throws NacosException {
 		ConfigService configService = this.createConfigService();
 		String config =
-			configService.getConfig(properties.getNacosConfig().getDataId(),
+			configService.getConfig(properties.getNacos().getDataId(),
 				nacosConfigProperties.getGroup(),
 				nacosConfigProperties.getTimeout());
 		List<RouteDefinition> definitionList = JSONUtil.toList(config, RouteDefinition.class);
@@ -66,7 +66,7 @@ public class GatewayRoutesRefreshAutoConfiguration {
 	}
 
 	private void addConfigListener(ConfigService configService) throws NacosException {
-		configService.addListener(properties.getNacosConfig().getDataId(),
+		configService.addListener(properties.getNacos().getDataId(),
 			nacosConfigProperties.getGroup(), new Listener() {
 
 				@Override

@@ -29,17 +29,3 @@ spring:
     async:
       configurer:
         enabled: false # Bugfix: 兼容 Spring 高版本
-
-# SOFATracer
-#com:
-#  alipay:
-#    sofa:
-#      tracer:
-#        zipkin:
-#          enabled: true
-#          baseUrl: http://10.2.2.47:9411
-#          gzipped: true
-#        datasource:
-#          enable: true
-#        redis:
-#          enabled: true

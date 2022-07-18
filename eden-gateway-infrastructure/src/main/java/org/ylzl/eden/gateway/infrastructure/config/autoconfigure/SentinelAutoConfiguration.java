@@ -22,6 +22,7 @@ import java.util.List;
  * @since 2.4.x
  */
 @Slf4j
+@Configuration
 public class SentinelAutoConfiguration {
 
 	private final List<ViewResolver> viewResolvers;
@@ -33,14 +34,14 @@ public class SentinelAutoConfiguration {
 		this.serverCodecConfigurer = serverCodecConfigurer;
 	}
 
-	@Bean
 	@Order(Ordered.HIGHEST_PRECEDENCE)
+	@Bean
 	public SentinelGatewayBlockExceptionHandler sentinelGatewayBlockExceptionHandler() {
 		return new SentinelGatewayBlockExceptionHandler(viewResolvers, serverCodecConfigurer);
 	}
 
-	@Bean
 	@Order(-1)
+	@Bean
 	public GlobalFilter globalFilter() {
 		return new SentinelGatewayFilter();
 	}

@@ -1,8 +1,14 @@
 package org.ylzl.eden.gateway.infrastructure.config.event;
 
+import com.alibaba.csp.sentinel.adapter.gateway.common.SentinelGatewayConstants;
+import com.alibaba.csp.sentinel.adapter.gateway.common.api.ApiDefinition;
+import com.alibaba.csp.sentinel.adapter.gateway.common.api.ApiPathPredicateItem;
+import com.alibaba.csp.sentinel.adapter.gateway.common.api.ApiPredicateItem;
+import com.alibaba.csp.sentinel.adapter.gateway.common.api.GatewayApiDefinitionManager;
+import com.google.common.collect.Sets;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.cloud.gateway.event.RefreshRoutesEvent;
 import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinitionLocator;
@@ -10,10 +16,10 @@ import org.springframework.cloud.gateway.route.RouteDefinitionWriter;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.stereotype.Component;
-import org.ylzl.eden.gateway.infrastructure.config.env.GatewayRoutesRefreshProperties;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * 网关路由刷新事件发布
@@ -21,7 +27,7 @@ import java.util.List;
  * @author gyl
  * @since 2.4.x
  */
-@ConditionalOnProperty(GatewayRoutesRefreshProperties.PREFIX)
+//@ConditionalOnProperty(GatewayRoutesRefreshProperties.PREFIX)
 @Slf4j
 @Component
 public class GatewayRoutesRefreshedEventPublisher implements ApplicationEventPublisherAware {
@@ -36,7 +42,7 @@ public class GatewayRoutesRefreshedEventPublisher implements ApplicationEventPub
 	}
 
 	@Override
-	public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
+	public void setApplicationEventPublisher(@NotNull ApplicationEventPublisher applicationEventPublisher) {
 		this.publisher = applicationEventPublisher;
 	}
 
@@ -44,6 +50,7 @@ public class GatewayRoutesRefreshedEventPublisher implements ApplicationEventPub
 		log.info("Gateway add route: {}", routeDefinition);
 		routeDefinitionWriter.save(Mono.just(routeDefinition)).subscribe();
 		publisher.publishEvent(new RefreshRoutesEvent(this));
+//		refreshGatewayApis(routeDefinition);
 	}
 
 	public void delete(RouteDefinition routeDefinition) {
@@ -77,5 +84,15 @@ public class GatewayRoutesRefreshedEventPublisher implements ApplicationEventPub
 				routeDefinitionWriter.delete(Mono.just(e.getId()));
 			});
 		}
+	}
+	private void refreshGatewayApis(@NotNull RouteDefinition routeDefinition) {
+		Set<ApiPredicateItem> apiPredicateItems = Sets.newHashSet();
+		routeDefinition.getPredicates().forEach(predicateDefinition ->
+			apiPredicateItems.add(new ApiPathPredicateItem()
+				.setPattern(predicateDefinition.getArgs().get("pattern"))
+				.setMatchStrategy(SentinelGatewayConstants.URL_MATCH_STRATEGY_PREFIX)));
+
+		ApiDefinition apiDefinition = new ApiDefinition(routeDefinition.getUri().toString()).setPredicateItems(apiPredicateItems);
+		GatewayApiDefinitionManager.loadApiDefinitions(Sets.newHashSet(apiDefinition));
 	}
 }
