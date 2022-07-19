@@ -33,6 +33,7 @@ public class NacosRefreshRoutesAutoConfiguration {
 	private final GatewayRoutesRefreshedEventPublisher publisher;
 
 	private final GatewayRoutesRefreshProperties gatewayProperties;
+
 	private final NacosConfigManager nacosConfigManager;
 
 	private final NacosConfigProperties nacosConfigProperties;

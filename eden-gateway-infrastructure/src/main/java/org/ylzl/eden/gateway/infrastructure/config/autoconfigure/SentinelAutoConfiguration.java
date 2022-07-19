@@ -1,6 +1,7 @@
 package org.ylzl.eden.gateway.infrastructure.config.autoconfigure;
 
 import com.alibaba.csp.sentinel.adapter.gateway.sc.SentinelGatewayFilter;
+import com.alibaba.csp.sentinel.adapter.gateway.sc.callback.GatewayCallbackManager;
 import com.alibaba.csp.sentinel.adapter.gateway.sc.exception.SentinelGatewayBlockExceptionHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.ObjectProvider;
@@ -9,8 +10,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.codec.ServerCodecConfigurer;
+import org.springframework.web.reactive.function.BodyInserters;
+import org.springframework.web.reactive.function.server.ServerResponse;
 import org.springframework.web.reactive.result.view.ViewResolver;
+import org.ylzl.eden.spring.cloud.sentinel.ResponseBuilder;
 
 import java.util.Collections;
 import java.util.List;
@@ -37,6 +43,9 @@ public class SentinelAutoConfiguration {
 	@Order(Ordered.HIGHEST_PRECEDENCE)
 	@Bean
 	public SentinelGatewayBlockExceptionHandler sentinelGatewayBlockExceptionHandler() {
+		GatewayCallbackManager.setBlockHandler((exchange, t) -> ServerResponse.status(HttpStatus.TOO_MANY_REQUESTS)
+			.contentType(MediaType.APPLICATION_JSON)
+			.body(BodyInserters.fromValue(ResponseBuilder.buildResponse(t))));
 		return new SentinelGatewayBlockExceptionHandler(viewResolvers, serverCodecConfigurer);
 	}
 

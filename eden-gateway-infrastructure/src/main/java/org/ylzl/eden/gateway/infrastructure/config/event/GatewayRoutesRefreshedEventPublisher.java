@@ -1,11 +1,5 @@
 package org.ylzl.eden.gateway.infrastructure.config.event;
 
-import com.alibaba.csp.sentinel.adapter.gateway.common.SentinelGatewayConstants;
-import com.alibaba.csp.sentinel.adapter.gateway.common.api.ApiDefinition;
-import com.alibaba.csp.sentinel.adapter.gateway.common.api.ApiPathPredicateItem;
-import com.alibaba.csp.sentinel.adapter.gateway.common.api.ApiPredicateItem;
-import com.alibaba.csp.sentinel.adapter.gateway.common.api.GatewayApiDefinitionManager;
-import com.google.common.collect.Sets;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.jetbrains.annotations.NotNull;
@@ -19,7 +13,6 @@ import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * 网关路由刷新事件发布
@@ -49,6 +42,9 @@ public class GatewayRoutesRefreshedEventPublisher implements ApplicationEventPub
 	public void add(RouteDefinition routeDefinition) {
 		log.info("Gateway add route: {}", routeDefinition);
 		routeDefinitionWriter.save(Mono.just(routeDefinition)).subscribe();
+
+
+
 		publisher.publishEvent(new RefreshRoutesEvent(this));
 	}
 
@@ -84,15 +80,5 @@ public class GatewayRoutesRefreshedEventPublisher implements ApplicationEventPub
 				routeDefinitionWriter.delete(Mono.just(e.getId()));
 			});
 		}
-	}
-	private void refreshGatewayApis(@NotNull RouteDefinition routeDefinition) {
-		Set<ApiPredicateItem> apiPredicateItems = Sets.newHashSet();
-		routeDefinition.getPredicates().forEach(predicateDefinition ->
-			apiPredicateItems.add(new ApiPathPredicateItem()
-				.setPattern(predicateDefinition.getArgs().get("pattern"))
-				.setMatchStrategy(SentinelGatewayConstants.URL_MATCH_STRATEGY_PREFIX)));
-
-		ApiDefinition apiDefinition = new ApiDefinition(routeDefinition.getUri().toString()).setPredicateItems(apiPredicateItems);
-		GatewayApiDefinitionManager.getApiDefinitions().addAll(Sets.newHashSet(apiDefinition));
 	}
 }
