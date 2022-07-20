@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
@@ -28,7 +27,7 @@ import java.util.List;
  * @since 2.4.x
  */
 @Slf4j
-@Configuration
+//@Configuration
 public class SentinelAutoConfiguration {
 
 	private final List<ViewResolver> viewResolvers;
