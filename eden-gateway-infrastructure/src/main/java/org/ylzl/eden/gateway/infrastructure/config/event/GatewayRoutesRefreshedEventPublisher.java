@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * 网关路由刷新事件发布
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Slf4j

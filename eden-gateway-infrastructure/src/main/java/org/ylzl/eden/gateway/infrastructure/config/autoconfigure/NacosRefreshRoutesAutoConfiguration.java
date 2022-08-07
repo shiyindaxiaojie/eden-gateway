@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * Nacos 刷新网关路由自动装配
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @ConditionalOnExpression("${" + GatewayRoutesRefreshProperties.PREFIX + ".nacos.enabled:false}")
