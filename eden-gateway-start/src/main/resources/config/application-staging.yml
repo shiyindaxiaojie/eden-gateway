@@ -15,4 +15,3 @@ spring:
   # 模板引擎
   thymeleaf:
     cache: true
-d

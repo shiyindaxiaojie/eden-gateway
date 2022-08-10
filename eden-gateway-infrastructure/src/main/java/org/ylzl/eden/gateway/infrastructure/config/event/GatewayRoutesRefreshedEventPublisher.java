@@ -42,9 +42,6 @@ public class GatewayRoutesRefreshedEventPublisher implements ApplicationEventPub
 	public void add(RouteDefinition routeDefinition) {
 		log.info("Gateway add route: {}", routeDefinition);
 		routeDefinitionWriter.save(Mono.just(routeDefinition)).subscribe();
-
-
-
 		publisher.publishEvent(new RefreshRoutesEvent(this));
 	}
 

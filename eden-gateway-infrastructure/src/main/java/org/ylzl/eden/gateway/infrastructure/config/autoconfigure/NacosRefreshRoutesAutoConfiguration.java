@@ -3,10 +3,12 @@ package org.ylzl.eden.gateway.infrastructure.config.autoconfigure;
 import cn.hutool.json.JSONUtil;
 import com.alibaba.cloud.nacos.NacosConfigManager;
 import com.alibaba.cloud.nacos.NacosConfigProperties;
+import com.alibaba.nacos.api.config.ConfigService;
 import com.alibaba.nacos.api.config.listener.AbstractListener;
 import com.alibaba.nacos.api.exception.NacosException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.gateway.route.RouteDefinition;
@@ -40,8 +42,17 @@ public class NacosRefreshRoutesAutoConfiguration {
 
 	@PostConstruct
 	public void init() throws NacosException {
-		nacosConfigManager.getConfigService()
-			.addListener(gatewayProperties.getNacos().getDataId(),
+		ConfigService configService = nacosConfigManager.getConfigService();
+		String config =
+			configService.getConfig(gatewayProperties.getNacos().getDataId(),
+				nacosConfigProperties.getGroup(),
+				nacosConfigProperties.getTimeout());
+		List<RouteDefinition> definitionList = JSONUtil.toList(config, RouteDefinition.class);
+		if (CollectionUtils.isNotEmpty(definitionList)) {
+			definitionList.forEach(publisher::add);
+		}
+
+		configService.addListener(gatewayProperties.getNacos().getDataId(),
 				nacosConfigProperties.getGroup(),
 				new AbstractListener() {
 
