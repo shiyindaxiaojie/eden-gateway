@@ -16,7 +16,7 @@ import org.springframework.http.codec.ServerCodecConfigurer;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import org.springframework.web.reactive.result.view.ViewResolver;
-import org.ylzl.eden.spring.cloud.sentinel.ResponseBuilder;
+import org.ylzl.eden.spring.cloud.sentinel.web.ResponseBuilder;
 
 import java.util.Collections;
 import java.util.List;
