@@ -16,7 +16,7 @@ import static java.util.Collections.synchronizedMap;
  * 修复内存路由定义仓库
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 public class FixedInMemoryRouteDefinitionRepository implements RouteDefinitionRepository {
 

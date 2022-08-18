@@ -18,7 +18,7 @@ import java.util.List;
  * 网关路由刷新事件发布
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @Slf4j
 @Component
@@ -39,8 +39,8 @@ public class GatewayRoutesRefreshedEventPublisher implements ApplicationEventPub
 		this.publisher = applicationEventPublisher;
 	}
 
-	public void add(RouteDefinition routeDefinition) {
-		log.info("Gateway add route: {}", routeDefinition);
+	public void save(RouteDefinition routeDefinition) {
+		log.info("Gateway save route: {}", routeDefinition);
 		routeDefinitionWriter.save(Mono.just(routeDefinition)).subscribe();
 		publisher.publishEvent(new RefreshRoutesEvent(this));
 	}
@@ -58,10 +58,10 @@ public class GatewayRoutesRefreshedEventPublisher implements ApplicationEventPub
 		publisher.publishEvent(new RefreshRoutesEvent(this));
 	}
 
-	public void update(List<RouteDefinition> routeDefinitions) {
+	public void batchSave(List<RouteDefinition> routeDefinitions) {
 		this.clearOldRouteDefinitions();
 		routeDefinitions.forEach(e -> {
-			log.info("Gateway batch add route: {}", e);
+			log.info("Gateway batch save route: {}", e);
 			routeDefinitionWriter.save(Mono.just(e)).subscribe();
 		});
 		publisher.publishEvent(new RefreshRoutesEvent(this));

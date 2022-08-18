@@ -23,7 +23,7 @@ import java.util.List;
  * Nacos 刷新网关路由自动装配
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @ConditionalOnExpression("${" + GatewayRoutesRefreshProperties.PREFIX + ".nacos.enabled:false}")
 @EnableConfigurationProperties(GatewayRoutesRefreshProperties.class)
@@ -49,7 +49,7 @@ public class NacosRefreshRoutesAutoConfiguration {
 				nacosConfigProperties.getTimeout());
 		List<RouteDefinition> definitionList = JSONUtil.toList(config, RouteDefinition.class);
 		if (CollectionUtils.isNotEmpty(definitionList)) {
-			definitionList.forEach(publisher::add);
+			definitionList.forEach(publisher::save);
 		}
 
 		configService.addListener(gatewayProperties.getNacos().getDataId(),
@@ -59,7 +59,7 @@ public class NacosRefreshRoutesAutoConfiguration {
 					@Override
 					public void receiveConfigInfo(String configInfo) {
 						List<RouteDefinition> definitionList = JSONUtil.toList(configInfo, RouteDefinition.class);
-						publisher.update(definitionList);
+						publisher.batchSave(definitionList);
 					}
 				});
 	}
