@@ -28,7 +28,7 @@ import java.util.List;
  * @since 2.4.13
  */
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class SentinelAutoConfiguration {
 
 	private final List<ViewResolver> viewResolvers;

@@ -29,7 +29,7 @@ import java.util.List;
 @EnableConfigurationProperties(GatewayRoutesRefreshProperties.class)
 @RequiredArgsConstructor
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class NacosRefreshRoutesAutoConfiguration {
 
 	private final GatewayRoutesRefreshedEventPublisher publisher;

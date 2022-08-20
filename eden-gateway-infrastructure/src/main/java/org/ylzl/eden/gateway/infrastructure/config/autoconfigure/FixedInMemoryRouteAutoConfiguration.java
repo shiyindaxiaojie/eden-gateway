@@ -13,7 +13,7 @@ import org.ylzl.eden.gateway.infrastructure.config.memory.FixedInMemoryRouteDefi
  * @since 2.4.13
  */
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class FixedInMemoryRouteAutoConfiguration {
 
 	@Bean
