@@ -33,3 +33,8 @@ spring:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
 
+# 实时监控
+cat:
+  enabled: true
+  home: /tmp
+  servers: 127.0.0.1:8886:2280
