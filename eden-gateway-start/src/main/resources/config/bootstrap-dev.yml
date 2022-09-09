@@ -17,7 +17,6 @@ spring:
       enabled: true
       transport:
         dashboard: localhost:8090
-      http-method-specify: true
 
 dubbo:
   registry:

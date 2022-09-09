@@ -43,6 +43,7 @@ spring:
     allow-bean-definition-overriding: true
   thymeleaf:
     mode: HTML
+    cache: true
   sleuth:
     sampler:
       probability: 1
