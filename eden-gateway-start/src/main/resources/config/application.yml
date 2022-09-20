@@ -48,6 +48,15 @@ spring:
     sampler:
       probability: 1.0
       rate: 10000
+    propagation:
+      tag:
+        enabled: true
+        whitelisted-keys:
+          - stress # 压测标识
+    propagation-keys:
+      - stress
+    web:
+      enabled: true
     async:
       configurer:
         enabled: false # Bugfix：与 Spring 高版本存在冲突
@@ -57,8 +66,9 @@ spring:
       discovery:
         enabled: true
   arthas:
-    enabled: true
+    enabled: false
 
+# Arthas
 arthas:
   agent-id: ${spring.application.name}
   tunnel-server: ws://127.0.0.1:7777/ws
