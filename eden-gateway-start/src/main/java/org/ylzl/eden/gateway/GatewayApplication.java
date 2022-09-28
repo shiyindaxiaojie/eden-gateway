@@ -15,7 +15,7 @@ import org.ylzl.eden.spring.framework.bootstrap.SpringBootApplicationTemplate;
 @EnableDiscoveryClient
 @Slf4j
 @SpringBootApplication
-public class Application extends SpringBootApplicationTemplate {
+public class GatewayApplication extends SpringBootApplicationTemplate {
 
 	/**
 	 * 启动入口
@@ -23,6 +23,6 @@ public class Application extends SpringBootApplicationTemplate {
 	 * @param args 命令行参数
 	 */
 	public static void main(String[] args) {
-		run(Application.class, args, WebApplicationType.REACTIVE);
+		run(GatewayApplication.class, args, WebApplicationType.REACTIVE);
 	}
 }

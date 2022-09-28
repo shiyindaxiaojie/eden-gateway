@@ -16,7 +16,7 @@
 	<description>启动入口</description>
 
 	<properties>
-		<start-class>org.ylzl.eden.gateway.Application</start-class>
+		<start-class>org.ylzl.eden.gateway.GatewayApplication</start-class>
 	</properties>
 
 	<build>
