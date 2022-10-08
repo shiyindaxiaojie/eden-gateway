@@ -32,6 +32,9 @@ spring:
       buffer-memory: 40960
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
+  # 在线诊断
+  arthas:
+    enabled: true
 
 # 实时监控
 cat:
