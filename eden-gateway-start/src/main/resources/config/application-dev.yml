@@ -5,6 +5,9 @@ logging:
     org.ylzl.eden.gateway.infrastructure: DEBUG
 
 spring:
+  # 在线诊断
+  arthas:
+    enabled: true
   # 缓存数据库
   redis:
     #    database: 1
@@ -32,12 +35,11 @@ spring:
       buffer-memory: 40960
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
-  # 在线诊断
-  arthas:
-    enabled: true
 
 # 实时监控
 cat:
   enabled: true
   home: /tmp
-  servers: 127.0.0.1:8886:2280
+  servers: 127.0.0.1
+  tcp-port: 2280
+  http-port: 8080

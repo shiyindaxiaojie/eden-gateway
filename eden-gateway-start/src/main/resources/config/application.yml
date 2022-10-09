@@ -16,6 +16,8 @@ server:
     min-response-size: 1024
 
 spring:
+  arthas:
+    enabled: false
   cloud:
     loadbalancer:
       ribbon:
@@ -61,14 +63,38 @@ spring:
       configurer:
         enabled: false # Bugfix：与 Spring 高版本存在冲突
   zipkin:
+    enabled: false
     discovery-client-enabled: true
     locator:
       discovery:
         enabled: true
-  arthas:
-    enabled: false
 
-# Arthas
+dubbo:
+  application:
+    id: ${spring.application.name}-dubbo
+    name: ${spring.application.name}-dubbo
+  protocol:
+    name: dubbo
+    port: 28081
+  registry:
+    id: ${spring.application.name}-dubbo
+    address: nacos://${spring.cloud.nacos.discovery.server-addr}?namespace=${spring.cloud.nacos.discovery.namespace}&group=DEFAULT_GROUP
+    protocol: nacos
+    check: false # 是否开启服务注册的启动检查
+    register: true # 是否开启服务注册，设置为 false 表示只订阅不注册
+  config-center:
+    address: nacos://${spring.cloud.nacos.discovery.server-addr}?namespace=${spring.cloud.nacos.discovery.namespace}&group=DEFAULT_GROUP
+  metadata-report:
+    address: nacos://${spring.cloud.nacos.discovery.server-addr}?namespace=${spring.cloud.nacos.discovery.namespace}&group=DEFAULT_GROUP
+  provider:
+    retries: 0    # 重试次数
+    timeout: 3000 # 超时时间
+    check: false # 是否开启检查
+  consumer:
+    retries: 0    # 重试次数
+    timeout: 3000 # 超时时间
+    check: false # 是否开启检查
+
 arthas:
   agent-id: ${spring.application.name}@${random.value}
   tunnel-server: ws://127.0.0.1:7777/ws
