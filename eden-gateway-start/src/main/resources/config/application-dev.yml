@@ -16,20 +16,20 @@ spring:
     password: puyiwm
     timeout: 5000
     cluster:
-      nodes: 10.2.2.45:6379,10.2.2.48:6379,10.2.2.47:6379,10.2.2.47:6380,10.2.2.47:6381,10.2.2.47:6382
+      nodes: 10.2.2.45:6379,10.2.2.48:6379,localhost:6379,localhost:6380,localhost:6381,localhost:6382
   # 模板引擎
   thymeleaf:
     cache: false
   # 链路跟踪
   zipkin:
-    base-url: http://10.2.2.47:9411
+    base-url: http://localhost:9411
     sender:
       type: kafka
     kafka:
       topic: zipkin
   # 链路采集
   kafka:
-    bootstrap-servers: 10.2.2.35:9092
+    bootstrap-servers: localhost:9092
     producer:
       batch-size: 4096
       buffer-memory: 40960
