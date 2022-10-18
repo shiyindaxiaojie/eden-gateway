@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.ylzl.eden.spring.framework.bootstrap.SpringBootApplicationTemplate;
+import org.ylzl.eden.spring.framework.bootstrap.SpringBootApplicationHelper;
 
 /**
  * Spring Boot 引导类
@@ -15,7 +15,7 @@ import org.ylzl.eden.spring.framework.bootstrap.SpringBootApplicationTemplate;
 @EnableDiscoveryClient
 @Slf4j
 @SpringBootApplication
-public class GatewayApplication extends SpringBootApplicationTemplate {
+public class GatewayApplication {
 
 	/**
 	 * 启动入口
@@ -23,6 +23,6 @@ public class GatewayApplication extends SpringBootApplicationTemplate {
 	 * @param args 命令行参数
 	 */
 	public static void main(String[] args) {
-		run(GatewayApplication.class, args, WebApplicationType.REACTIVE);
+		SpringBootApplicationHelper.run(GatewayApplication.class, args, WebApplicationType.REACTIVE);
 	}
 }

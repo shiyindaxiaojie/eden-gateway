@@ -3,17 +3,13 @@ spring:
     nacos:
       config:
         username: nacos
-        password:
+        password: nacos
         server-addr: localhost:8848
         namespace: demo
         group: spring-cloud
       discovery:
         username: nacos
-        password:
+        password: nacos
         server-addr: localhost:8848
         namespace: demo
         group: spring-cloud
-    sentinel:
-      enabled: true
-      transport:
-        dashboard: localhost:8090

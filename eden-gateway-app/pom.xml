@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>org.ylzl.eden.gateway</groupId>
 		<artifactId>eden-gateway</artifactId>
-		<version>2.4.13-SNAPSHOT</version>
+		<version>2.4.13.20221019</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>eden-gateway-app</artifactId>
@@ -24,14 +24,14 @@
 		<dependency>
 			<groupId>org.ylzl.eden.gateway</groupId>
 			<artifactId>eden-gateway-client</artifactId>
-			<version>2.4.13-SNAPSHOT</version>
+			<version>2.4.13.20221019</version>
 		</dependency>
 
 		<!-- 基础设施层依赖 -->
 		<dependency>
 			<groupId>org.ylzl.eden.gateway</groupId>
 			<artifactId>eden-gateway-infrastructure</artifactId>
-			<version>2.4.13-SNAPSHOT</version>
+			<version>2.4.13.20221019</version>
 		</dependency>
 
 		<!-- 开发组件 -->

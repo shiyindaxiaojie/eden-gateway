@@ -1,19 +1,17 @@
 logging:
+  file:
+    name: ${spring.application.name}
   config: classpath:log4j2.yml
-
-mybatis-plus:
-  global-config:
-    banner: false
-  configuration:
-    map-underscore-to-camel-case: true
-    auto-mapping-behavior: full
+  level:
+    org.ylzl.eden: DEBUG
 
 server:
   port: 8080
+  shutdown: graceful
   compression:
     enabled: true
-    mime-types: text/html,text/plain,text/css,application/javascript
     min-response-size: 1024
+    mime-types: text/html,text/plain,text/css,application/javascript
 
 spring:
   arthas:
@@ -28,8 +26,7 @@ spring:
         locator:
           enabled: false
           lower-case-service-id: true
-      refresh-routes:
-        enabled: true
+      routes:
         nacos:
           enabled: true
           data-id: gateway-routes.json
@@ -43,6 +40,8 @@ spring:
     basename: i18n/messages
   main:
     allow-bean-definition-overriding: true
+  lifecycle:
+    timeout-per-shutdown-phase: 30s
   thymeleaf:
     mode: HTML
     cache: true
@@ -69,13 +68,22 @@ spring:
       discovery:
         enabled: true
 
+# 在线诊断工具
+arthas:
+  agent-id: ${spring.application.name}@${random.value}
+  tunnel-server: ws://localhost:7777/ws
+  session-timeout: 1800
+  telnet-port: 0
+  http-port: 0
+
+# 分布式调用组件
 dubbo:
   application:
     id: ${spring.application.name}-dubbo
     name: ${spring.application.name}-dubbo
   protocol:
     name: dubbo
-    port: 28081
+    port: 28080
   registry:
     id: ${spring.application.name}-dubbo
     address: nacos://${spring.cloud.nacos.discovery.server-addr}?namespace=${spring.cloud.nacos.discovery.namespace}&group=DEFAULT_GROUP
@@ -94,10 +102,3 @@ dubbo:
     retries: 0    # 重试次数
     timeout: 3000 # 超时时间
     check: false # 是否开启检查
-
-arthas:
-  agent-id: ${spring.application.name}@${random.value}
-  tunnel-server: ws://127.0.0.1:7777/ws
-  session-timeout: 1800
-  telnet-port: 0
-  http-port: 0

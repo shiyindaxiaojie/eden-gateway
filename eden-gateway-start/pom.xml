@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>org.ylzl.eden.gateway</groupId>
 		<artifactId>eden-gateway</artifactId>
-		<version>2.4.13-SNAPSHOT</version>
+		<version>2.4.13.20221019</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>eden-gateway-start</artifactId>
@@ -18,6 +18,7 @@
 	<properties>
 		<start-class>org.ylzl.eden.gateway.GatewayApplication</start-class>
 		<maven.deploy.skip>true</maven.deploy.skip>
+		<build.layers.enabled>true</build.layers.enabled>
 	</properties>
 
 	<build>

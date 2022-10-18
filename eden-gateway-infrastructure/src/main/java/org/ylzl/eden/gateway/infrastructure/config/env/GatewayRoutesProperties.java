@@ -4,16 +4,16 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * 网关路由刷新配置
+ * 网关路由配置
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
 @Data
-@ConfigurationProperties(prefix = GatewayRoutesRefreshProperties.PREFIX)
-public class GatewayRoutesRefreshProperties {
+@ConfigurationProperties(prefix = GatewayRoutesProperties.PREFIX)
+public class GatewayRoutesProperties {
 
-	public static final String PREFIX = "spring.cloud.gateway.refresh-routes";
+	public static final String PREFIX = "spring.cloud.gateway.routes";
 
 	private final Nacos nacos = new Nacos();
 

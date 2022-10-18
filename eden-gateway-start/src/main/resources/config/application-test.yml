@@ -1,14 +1,29 @@
 logging:
   level:
     ROOT: INFO
-    org.ylzl.eden.gateway: INFO
-    org.ylzl.eden.gateway.infrastructure: DEBUG
 
 spring:
+  # 在线诊断
+  arthas:
+    enabled: true
   # 缓存数据库
   redis:
+    password:
+    timeout: 5000
     database: 1
     host: localhost
     port: 6379
-    password:
-    timeout: 5000
+  # 链路跟踪
+  zipkin:
+    base-url: http://localhost:9411
+  # 链路采集
+  kafka:
+    bootstrap-servers: localhost:9092
+
+# 实时监控
+cat:
+  enabled: true
+  home: /tmp
+  servers: localhost
+  tcp-port: 2280
+  http-port: 8080

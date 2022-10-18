@@ -15,21 +15,21 @@ import reactor.core.publisher.Mono;
 import java.util.List;
 
 /**
- * 网关路由刷新事件发布
+ * 网关路由事件发布
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
 @Slf4j
 @Component
-public class GatewayRoutesRefreshedEventPublisher implements ApplicationEventPublisherAware {
+public class GatewayRoutesEventPublisher implements ApplicationEventPublisherAware {
 
 	public static final String REACTIVE_COMPOSITE_DISCOVERY_CLIENT_ = "ReactiveCompositeDiscoveryClient_";
 	private final RouteDefinitionWriter routeDefinitionWriter;
 	private final RouteDefinitionLocator routeDefinitionLocator;
 	private ApplicationEventPublisher publisher;
 
-	public GatewayRoutesRefreshedEventPublisher(RouteDefinitionWriter routeDefinitionWriter, RouteDefinitionLocator routeDefinitionLocator) {
+	public GatewayRoutesEventPublisher(RouteDefinitionWriter routeDefinitionWriter, RouteDefinitionLocator routeDefinitionLocator) {
 		this.routeDefinitionWriter = routeDefinitionWriter;
 		this.routeDefinitionLocator = routeDefinitionLocator;
 	}

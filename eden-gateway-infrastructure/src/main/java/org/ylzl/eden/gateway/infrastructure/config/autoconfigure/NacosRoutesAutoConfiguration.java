@@ -13,8 +13,8 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.context.annotation.Configuration;
-import org.ylzl.eden.gateway.infrastructure.config.env.GatewayRoutesRefreshProperties;
-import org.ylzl.eden.gateway.infrastructure.config.event.GatewayRoutesRefreshedEventPublisher;
+import org.ylzl.eden.gateway.infrastructure.config.env.GatewayRoutesProperties;
+import org.ylzl.eden.gateway.infrastructure.config.event.GatewayRoutesEventPublisher;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
@@ -25,16 +25,16 @@ import java.util.List;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@ConditionalOnExpression("${" + GatewayRoutesRefreshProperties.PREFIX + ".nacos.enabled:false}")
-@EnableConfigurationProperties(GatewayRoutesRefreshProperties.class)
+@ConditionalOnExpression("${" + GatewayRoutesProperties.PREFIX + ".nacos.enabled:false}")
+@EnableConfigurationProperties(GatewayRoutesProperties.class)
 @RequiredArgsConstructor
 @Slf4j
 @Configuration(proxyBeanMethods = false)
-public class NacosRefreshRoutesAutoConfiguration {
+public class NacosRoutesAutoConfiguration {
 
-	private final GatewayRoutesRefreshedEventPublisher publisher;
+	private final GatewayRoutesEventPublisher publisher;
 
-	private final GatewayRoutesRefreshProperties gatewayProperties;
+	private final GatewayRoutesProperties gatewayProperties;
 
 	private final NacosConfigManager nacosConfigManager;
 
