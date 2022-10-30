@@ -16,7 +16,7 @@ import org.springframework.http.codec.ServerCodecConfigurer;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import org.springframework.web.reactive.result.view.ViewResolver;
-import org.ylzl.eden.spring.cloud.sentinel.web.ResponseBuilder;
+import org.ylzl.eden.spring.cloud.sentinel.web.BlockResponseBuilder;
 
 import java.util.Collections;
 import java.util.List;
@@ -45,7 +45,7 @@ public class SentinelAutoConfiguration {
 	public SentinelGatewayBlockExceptionHandler sentinelGatewayBlockExceptionHandler() {
 		GatewayCallbackManager.setBlockHandler((exchange, t) -> ServerResponse.status(HttpStatus.TOO_MANY_REQUESTS)
 			.contentType(MediaType.APPLICATION_JSON)
-			.body(BodyInserters.fromValue(ResponseBuilder.buildResponse(t))));
+			.body(BodyInserters.fromValue(BlockResponseBuilder.buildResponse(t))));
 		return new SentinelGatewayBlockExceptionHandler(viewResolvers, serverCodecConfigurer);
 	}
 
